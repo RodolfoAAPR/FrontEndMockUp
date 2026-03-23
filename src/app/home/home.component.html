@@ -1,0 +1,71 @@
+<div class="layout">
+  <aside class="sidebar" [class.open]="sidebarOpen">
+    <div class="sidebar-header">
+      <h2 class="logo" *ngIf="sidebarOpen">MENU</h2>
+    </div>
+
+    <nav class="menu">
+      <button class="menu-item" type="button">
+        <span class="menu-icon">•</span>
+        <span class="menu-text" *ngIf="sidebarOpen">SOBRE</span>
+      </button>
+
+      <button class="menu-item" type="button">
+        <span class="menu-icon">•</span>
+        <span class="menu-text" *ngIf="sidebarOpen">RASTREIO</span>
+      </button>
+
+      <button class="menu-item" type="button">
+        <span class="menu-icon">•</span>
+        <span class="menu-text" *ngIf="sidebarOpen">AJUDA</span>
+      </button>
+    </nav>
+  </aside>
+
+  <div class="main" [class.expanded]="sidebarOpen">
+    <header class="topbar">
+      <button
+        class="menu-button"
+        (click)="toggleSidebar()"
+        aria-label="Abrir menu"
+        type="button"
+      >
+        ☰
+      </button>
+
+      <div class="topbar-right">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+          alt="Usuário"
+          class="user-avatar"
+        />
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <span class="badge">FRONT-END SAFE</span>
+        <h1>Bem-vindo cupixa</h1>
+        <p>
+          Uma estrutura inicial moderna com menu lateral retrátil,
+          topo com avatar do usuário e visual nas cores preto, roxo e amarelo.
+        </p>
+
+        <div class="hero-actions">
+          <button class="primary-btn" type="button">Começar</button>
+          <button class="secondary-btn" type="button">Explorar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-area">
+      <div class="home-card">
+        <h2>Página inicial</h2>
+        <p>
+          Esse espaço pode receber os principais conteúdos da sua aplicação,
+          como atalhos, cards, status, rastreamento ou qualquer informação principal.
+        </p>
+      </div>
+    </section>
+  </div>
+</div>
