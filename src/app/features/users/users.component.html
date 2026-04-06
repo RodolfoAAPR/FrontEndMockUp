@@ -1,244 +1,150 @@
-<div class="max-w-6xl mx-auto mt-8 px-4">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-bold">Gerenciamento de usuários</h2>
-        <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-            Novo usuário
-        </button>
-    </div>
-    <div class="flex border-b border-gray-300 mb-4">
-        <button (click)="activeTab = 'administradores'"
-            [class]="activeTab === 'administradores' ? 'px-4 py-2 border-b-2 border-blue-600 text-blue-600 font-semibold' : 'px-4 py-2 text-gray-500 hover:text-gray-700'">
+<div class="users-page">
+  <div class="background-glow glow-1"></div>
+  <div class="background-glow glow-2"></div>
+
+  <header class="topbar">
+    <div class="logo">SAFE<span> Supply</span></div>
+    <nav class="menu">
+      <a routerLink="/home">Home</a>
+      <a routerLink="/users">Usuários</a>
+      <a routerLink="/lots">Lotes</a>
+    </nav>
+  </header>
+
+  <main class="users-wrapper">
+    <section class="intro-card">
+      <p class="eyebrow">GESTÃO DE USUÁRIOS</p>
+      <h1>Gerenciamento de usuários</h1>
+      <p class="intro-text">
+        Visualize, cadastre e gerencie os usuários da plataforma por categoria.
+      </p>
+    </section>
+
+    <section class="content-area">
+      <div class="header-row">
+        <div class="tabs">
+          <button (click)="activeTab = 'administradores'"
+            [class.active]="activeTab === 'administradores'">
             Administradores
-        </button>
-        <button (click)="activeTab = 'produtores'"
-            [class]="activeTab === 'produtores' ? 'px-4 py-2 border-b-2 border-blue-600 text-blue-600 font-semibold' : 'px-4 py-2 text-gray-500 hover:text-gray-700'">
+          </button>
+          <button (click)="activeTab = 'produtores'"
+            [class.active]="activeTab === 'produtores'">
             Produtores
-        </button>
-        <button (click)="activeTab = 'auditores'"
-            [class]="activeTab === 'auditores' ? 'px-4 py-2 border-b-2 border-blue-600 text-blue-600 font-semibold' : 'px-4 py-2 text-gray-500 hover:text-gray-700'">
+          </button>
+          <button (click)="activeTab = 'auditores'"
+            [class.active]="activeTab === 'auditores'">
             Auditores
-        </button>
-        <button (click)="activeTab = 'transportadores'"
-            [class]="activeTab === 'transportadores' ? 'px-4 py-2 border-b-2 border-blue-600 text-blue-600 font-semibold' : 'px-4 py-2 text-gray-500 hover:text-gray-700'">
+          </button>
+          <button (click)="activeTab = 'transportadores'"
+            [class.active]="activeTab === 'transportadores'">
             Transportadores
-        </button>
-        <button (click)="activeTab = 'varejistas'"
-            [class]="activeTab === 'varejistas' ? 'px-4 py-2 border-b-2 border-blue-600 text-blue-600 font-semibold' : 'px-4 py-2 text-gray-500 hover:text-gray-700'">
+          </button>
+          <button (click)="activeTab = 'varejistas'"
+            [class.active]="activeTab === 'varejistas'">
             Varejistas
-        </button>
-    </div>
-    
-    @if (activeTab === 'administradores') {
-    <table class="w-full text-left border-collapse">
-        <thead class="bg-gray-800 text-white">
-            <tr>
-                <th class="px-4 py-2">ID</th>
-                <th class="px-4 py-2">Nome</th>
-                <th class="px-4 py-2">Email</th>
-                <th class="px-4 py-2">Status</th>
-                <th class="px-4 py-2">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">1</td>
-                <td class="px-4 py-2">Seiji Hoshino</td>
-                <td class="px-4 py-2">seiji&#64;safesupply.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Ativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-red-600 hover:underline">Inativar</button>
-                </td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">2</td>
-                <td class="px-4 py-2">Sabrina Gabrielle</td>
-                <td class="px-4 py-2">sabrina&#64;safesupply.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Ativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-red-600 hover:underline">Inativar</button>
-                </td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">3</td>
-                <td class="px-4 py-2">Rodolfo Alves</td>
-                <td class="px-4 py-2">rodolfo&#64;safesupply.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Ativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-red-600 hover:underline">Inativar</button>
-                </td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">4</td>
-                <td class="px-4 py-2">Gabriel Yudi</td>
-                <td class="px-4 py-2">gabriel&#64;safesupply.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Ativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-red-600 hover:underline">Inativar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    }
+          </button>
+        </div>
+        <button class="btn primary" (click)="openUserForm()">+ Novo usuário</button>
+      </div>
 
-    @if (activeTab === 'produtores') {
-    <table class="w-full text-left border-collapse">
-        <thead class="bg-gray-800 text-white">
+      <div class="table-card">
+        @if (filteredUsers.length > 0) {
+        <table>
+          <thead>
             <tr>
-                <th class="px-4 py-2">ID</th>
-                <th class="px-4 py-2">Nome</th>
-                <th class="px-4 py-2">Email</th>
-                <th class="px-4 py-2">Status</th>
-                <th class="px-4 py-2">Ações</th>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Ações</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">5</td>
-                <td class="px-4 py-2">Fazenda Malunga</td>
-                <td class="px-4 py-2">malunga&#64;hotmail.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Ativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-red-600 hover:underline">Inativar</button>
-                </td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">6</td>
-                <td class="px-4 py-2">Fazenda Vale das Palmeiras</td>
-                <td class="px-4 py-2">valedaspalmeiras&#64;outlook.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Inativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-green-600 hover:underline">Ativar</button>
-                </td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">7</td>
-                <td class="px-4 py-2">Fazenda da Toca</td>
-                <td class="px-4 py-2">toca&#64;gmail.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Ativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-red-600 hover:underline">Inativar</button>
-                </td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">8</td>
-                <td class="px-4 py-2">Fazenda Nata da Serra</td>
-                <td class="px-4 py-2">natadaserra&#64;proton.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Ativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-red-600 hover:underline">Inativar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    }
-
-    @if (activeTab === 'auditores') {
-        <table class="w-full text-left border-collapse">
-        <thead class="bg-gray-800 text-white">
+          </thead>
+          <tbody>
+            @for (user of filteredUsers; track user.id) {
             <tr>
-                <th class="px-4 py-2">ID</th>
-                <th class="px-4 py-2">Nome</th>
-                <th class="px-4 py-2">Email</th>
-                <th class="px-4 py-2">Status</th>
-                <th class="px-4 py-2">Ações</th>
+              <td>{{ user.id }}</td>
+              <td>{{ user.nome }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <span class="badge" [class.active]="user.status === 'ativo'" [class.inactive]="user.status === 'inativo'">
+                  {{ user.status === 'ativo' ? 'Ativo' : 'Inativo' }}
+                </span>
+              </td>
+              <td class="actions-cell">
+                <button class="btn-action edit" (click)="openEditForm(user)">Editar</button>
+                @if (user.status === 'ativo') {
+                  <button class="btn-action deactivate" (click)="toggleStatus(user)">Inativar</button>
+                } @else {
+                  <button class="btn-action activate" (click)="toggleStatus(user)">Ativar</button>
+                }
+              </td>
             </tr>
-        </thead>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">9</td>
-                <td class="px-4 py-2">Ricardo Lopes</td>
-                <td class="px-4 py-2">ricardo&#64;hotmail.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Ativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-red-600 hover:underline">Inativar</button>
-                </td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">10</td>
-                <td class="px-4 py-2">Tiago Brumassio</td>
-                <td class="px-4 py-2">tiago&#64;outlook.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Inativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-green-600 hover:underline">Ativar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    }
-
-    @if (activeTab === 'transportadores') {
-    <table class="w-full text-left border-collapse">
-        <thead class="bg-gray-800 text-white">
-            <tr>
-                <th class="px-4 py-2">ID</th>
-                <th class="px-4 py-2">Nome</th>
-                <th class="px-4 py-2">Email</th>
-                <th class="px-4 py-2">Status</th>
-                <th class="px-4 py-2">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="px-4 py-2">11</td>
-                <td class="px-4 py-2">Ricoo Log Transportes e Logística</td>
-                <td class="px-4 py-2">rico&#64;logística.com</td>
-                <td class="px-4 py-2">
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Ativo</span>
-                </td>
-                <td class="px-4 py-2">
-                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
-                    <button class="text-red-600 hover:underline">Inativar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    }
-
-    @if (activeTab === 'varejistas') {
-        <p class="text-gray-500" style="font-style: italic;">Nenhum varejista cadastrado.</p>
-    }
+            }
+          </tbody>
+        </table>
+        } @else {
+        <div class="empty-state">
+          Nenhum usuário cadastrado nesta categoria.
+        </div>
+        }
+      </div>
+    </section>
+  </main>
 </div>
+
+@if (showUserForm) {
+<div class="modal-overlay" (click)="closeUserForm()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ editingUser ? 'Editar usuário' : 'Novo usuário' }}</h2>
+      <button class="close-btn" (click)="closeUserForm()">&times;</button>
+    </div>
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input id="nome" formControlName="nome" type="text" placeholder="Nome completo" />
+        @if (userForm.get('nome')?.invalid && userForm.get('nome')?.touched) {
+          <p class="error-msg">Nome é obrigatório.</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" placeholder="email&#64;exemplo.com" />
+        @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+          <p class="error-msg">Email válido é obrigatório.</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="tipo">Tipo</label>
+        <select id="tipo" formControlName="tipo">
+          <option value="" disabled>Selecione um tipo</option>
+          <option value="administrador">Administrador</option>
+          <option value="produtor">Produtor</option>
+          <option value="auditor">Auditor</option>
+          <option value="transportador">Transportador</option>
+          <option value="varejista">Varejista</option>
+        </select>
+        @if (userForm.get('tipo')?.invalid && userForm.get('tipo')?.touched) {
+          <p class="error-msg">Tipo é obrigatório.</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status">
+          <option value="ativo">Ativo</option>
+          <option value="inativo">Inativo</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn secondary" (click)="closeUserForm()">Cancelar</button>
+        <button type="submit" class="btn primary" [disabled]="userForm.invalid">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+}
