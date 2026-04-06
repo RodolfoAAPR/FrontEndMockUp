@@ -1,0 +1,369 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.home-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(180, 120, 255, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(120, 70, 255, 0.18), transparent 35%),
+    linear-gradient(135deg, #f7f5fb 0%, #f2effa 45%, #efebf9 100%);
+  color: #2d2352;
+  padding: 28px 42px;
+}
+
+/* brilhos decorativos */
+.background-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.glow-1 {
+  width: 320px;
+  height: 320px;
+  top: -80px;
+  right: -60px;
+  background: rgba(175, 95, 255, 0.18);
+}
+
+.glow-2 {
+  width: 280px;
+  height: 280px;
+  bottom: 40px;
+  left: 45%;
+  background: rgba(118, 70, 255, 0.14);
+}
+
+/* topo */
+.topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #3d2a78;
+}
+
+.logo span {
+  font-weight: 400;
+  color: #6d58b8;
+}
+
+.menu {
+  display: flex;
+  gap: 40px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #45366f;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.menu a:hover {
+  color: #7c4dff;
+}
+
+/* hero */
+.hero {
+  position: relative;
+  z-index: 2;
+  min-height: calc(100vh - 110px);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  gap: 30px;
+}
+
+.hero-text {
+  max-width: 500px;
+  padding-left: 24px;
+}
+
+.subtitle {
+  margin: 0 0 18px;
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+  color: #7f72a8;
+}
+
+.hero-text h1 {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 0.95;
+  font-weight: 300;
+  font-size: 4rem;
+  color: #51417f;
+}
+
+.hero-text h1 span {
+  font-weight: 600;
+  color: #5a4296;
+}
+
+.hero-text h1 strong {
+  font-weight: 800;
+  color: #7c4dff;
+}
+
+.description {
+  margin: 28px 0 30px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #5d537e;
+  max-width: 460px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 14px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #7c4dff, #b26fff);
+  color: white;
+  box-shadow: 0 12px 30px rgba(124, 77, 255, 0.28);
+}
+
+.btn.secondary {
+  background: rgba(255, 255, 255, 0.55);
+  color: #563b98;
+  border: 1px solid rgba(124, 77, 255, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+.slider-dots {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 70px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid #7c69b4;
+  background: transparent;
+}
+
+.dot.active {
+  background: #7c4dff;
+  border-color: #7c4dff;
+  box-shadow: 0 0 15px rgba(124, 77, 255, 0.4);
+}
+
+.news span {
+  display: block;
+  font-size: 0.8rem;
+  color: #8d84aa;
+  margin-bottom: 8px;
+}
+
+.news p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #43346f;
+  font-weight: 500;
+}
+
+/* visual direita */
+.hero-visual {
+  position: relative;
+  height: 620px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shape {
+  position: absolute;
+  width: 290px;
+  height: 170px;
+  border-radius: 6px;
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 20px 60px rgba(90, 60, 150, 0.15),
+    inset 0 0 20px rgba(255, 255, 255, 0.25);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.32),
+    rgba(177, 120, 255, 0.2),
+    rgba(124, 77, 255, 0.45)
+  );
+}
+
+.shape-back {
+  transform: translate(85px, -55px) rotate(0deg);
+  opacity: 0.72;
+}
+
+.shape-middle {
+  transform: translate(30px, -15px) rotate(0deg);
+  opacity: 0.85;
+}
+
+.shape-front {
+  transform: translate(-20px, 28px) rotate(0deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shape-front span {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(71, 43, 128, 0.78);
+  text-shadow: 0 2px 12px rgba(255, 255, 255, 0.35);
+}
+
+.glass-base {
+  position: absolute;
+  width: 250px;
+  height: 90px;
+  bottom: 110px;
+  left: 130px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(215, 206, 248, 0.42)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 12px 40px rgba(73, 49, 122, 0.12);
+}
+
+.floating-ball {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #d5c8ff 50%, #9f7cff 100%);
+  box-shadow: 0 15px 30px rgba(110, 71, 187, 0.18);
+}
+
+.ball-1 {
+  width: 42px;
+  height: 42px;
+  left: 135px;
+  bottom: 132px;
+}
+
+.ball-2 {
+  width: 72px;
+  height: 72px;
+  left: 40px;
+  top: 220px;
+  opacity: 0.6;
+}
+
+.floating-cube {
+  position: absolute;
+  right: 70px;
+  bottom: 88px;
+  width: 130px;
+  height: 130px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.7),
+    rgba(210, 190, 255, 0.45)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  transform: rotate(-12deg);
+  box-shadow: 0 20px 50px rgba(93, 63, 156, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+/* responsivo */
+@media (max-width: 1100px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 30px;
+  }
+
+  .hero-text {
+    max-width: 100%;
+    padding-left: 0;
+  }
+
+  .hero-visual {
+    height: 520px;
+  }
+
+  .hero-text h1 {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-page {
+    padding: 24px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .menu {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+
+  .description {
+    font-size: 0.95rem;
+  }
+
+  .hero-visual {
+    height: 420px;
+    transform: scale(0.9);
+  }
+
+  .shape {
+    width: 220px;
+    height: 135px;
+  }
+
+  .shape-front span {
+    font-size: 1.4rem;
+  }
+}

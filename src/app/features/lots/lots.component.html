@@ -1,0 +1,188 @@
+<div class="lots-page">
+  <div class="background-glow glow-1"></div>
+  <div class="background-glow glow-2"></div>
+
+  <header class="topbar">
+    <div class="logo">SAFE<span> Supply</span></div>
+
+    <nav class="menu">
+      <a routerLink="/home">Home</a>
+      <a routerLink="/lots">Lotes</a>
+      <a href="#">Contato</a>
+    </nav>
+  </header>
+
+  <main class="lots-wrapper">
+    <section class="intro-card">
+      <p class="eyebrow">GESTÃO DE LOTES</p>
+      <h1>Criação e visualização de lotes</h1>
+      <p class="intro-text">
+        Cadastre novos lotes com as informações principais e acompanhe os registros
+        já criados na mesma interface.
+      </p>
+    </section>
+
+    <section class="content-grid">
+      <div class="form-card">
+        <div class="card-header">
+          <h2>Criar lote</h2>
+          <p>Preencha os dados abaixo para registrar um novo lote.</p>
+        </div>
+
+        <form class="lot-form" (ngSubmit)="createLot()">
+          <div class="form-group full">
+            <label for="nome">Nome do lote</label>
+            <input
+              id="nome"
+              type="text"
+              name="nome"
+              [(ngModel)]="form.nome"
+              placeholder="Ex: Lote de Medicamentos 2026"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="tipo">Tipo do lote</label>
+            <select id="tipo" name="tipo" [(ngModel)]="form.tipo">
+              <option value="UNICO">Único</option>
+              <option value="CONJUNTO">Conjunto</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="dataEnvio">Data de envio</label>
+            <input
+              id="dataEnvio"
+              type="date"
+              name="dataEnvio"
+              [(ngModel)]="form.dataEnvio"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="cidade">Cidade do lote</label>
+            <input
+              id="cidade"
+              type="text"
+              name="cidade"
+              [(ngModel)]="form.cidade"
+              placeholder="Ex: São Paulo"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="pais">País</label>
+            <input
+              id="pais"
+              type="text"
+              name="pais"
+              [(ngModel)]="form.pais"
+              placeholder="Ex: Brasil"
+            />
+          </div>
+
+          <div class="form-group full checkbox-group">
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                name="envioPrioritario"
+                [(ngModel)]="form.envioPrioritario"
+              />
+              <span>Envio prioritário</span>
+            </label>
+          </div>
+
+          <div class="actions full">
+            <button type="submit" class="btn primary">Cadastrar lote</button>
+            <button type="button" class="btn secondary" (click)="toggleLotsView()">
+              {{ showLots ? 'Ocultar lotes cadastrados' : 'Ver lotes cadastrados' }}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="side-panel">
+        <div class="stats-card">
+          <span class="small-title">RESUMO</span>
+          <h3>{{ totalLotes }}</h3>
+          <p>Total de lotes cadastrados</p>
+        </div>
+
+        <div class="stats-card">
+          <span class="small-title">PRIORIDADE</span>
+          <h3>{{ totalPrioritarios }}</h3>
+          <p>Lotes com envio prioritário</p>
+        </div>
+
+        <div class="stats-card glass">
+          <span class="small-title">TIPOS</span>
+          <p class="type-line">
+            Único:
+            <strong>{{ totalUnico }}</strong>
+          </p>
+          <p class="type-line">
+            Conjunto:
+            <strong>{{ totalConjunto }}</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="lots-list-section" *ngIf="showLots">
+      <div class="section-header">
+        <h2>Lotes cadastrados</h2>
+        <p>Visualização completa dos lotes registrados.</p>
+      </div>
+
+      <div class="empty-state" *ngIf="lots.length === 0">
+        Nenhum lote cadastrado ainda.
+      </div>
+
+      <div class="lots-grid" *ngIf="lots.length > 0">
+        <article class="lot-card" *ngFor="let lot of lots">
+          <div class="lot-card-top">
+            <div>
+              <span class="lot-label">LOTE</span>
+              <h3>{{ lot.nome }}</h3>
+            </div>
+
+            <span class="badge" [class.priority]="lot.envioPrioritario">
+              {{ lot.envioPrioritario ? 'Prioritário' : 'Normal' }}
+            </span>
+          </div>
+
+          <div class="lot-info">
+            <div class="info-item">
+              <span>Tipo</span>
+              <strong>{{ lot.tipo === 'UNICO' ? 'Único' : 'Conjunto' }}</strong>
+            </div>
+
+            <div class="info-item">
+              <span>Cidade</span>
+              <strong>{{ lot.cidade }}</strong>
+            </div>
+
+            <div class="info-item">
+              <span>País</span>
+              <strong>{{ lot.pais }}</strong>
+            </div>
+
+            <div class="info-item">
+              <span>Data de envio</span>
+              <strong>{{ lot.dataEnvio | date:'dd/MM/yyyy' }}</strong>
+            </div>
+
+            <div class="info-item">
+              <span>Criado em</span>
+              <strong>{{ lot.createdAt | date:'dd/MM/yyyy HH:mm' }}</strong>
+            </div>
+          </div>
+
+          <div class="lot-actions">
+            <button class="btn danger" (click)="removeLot(lot.id)">Remover</button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</div>
