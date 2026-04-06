@@ -26,229 +26,209 @@
       <div class="panel-card">
         <div class="panel-top">
           <div class="tabs">
-            <button
-              class="tab-btn"
-              [class.active]="activeTab === 'administradores'"
-              (click)="activeTab = 'administradores'">
-              Administradores
-            </button>
-            <button
-              class="tab-btn"
-              [class.active]="activeTab === 'produtores'"
-              (click)="activeTab = 'produtores'">
-              Produtores
-            </button>
-            <button
-              class="tab-btn"
-              [class.active]="activeTab === 'auditores'"
-              (click)="activeTab = 'auditores'">
-              Auditores
-            </button>
-            <button
-              class="tab-btn"
-              [class.active]="activeTab === 'transportadores'"
-              (click)="activeTab = 'transportadores'">
-              Transportadores
-            </button>
-            <button
-              class="tab-btn"
-              [class.active]="activeTab === 'varejistas'"
-              (click)="activeTab = 'varejistas'">
-              Varejistas
-            </button>
+            <button class="tab-btn" [class.active]="activeTab === 'administradores'" (click)="activeTab = 'administradores'">Administradores</button>
+            <button class="tab-btn" [class.active]="activeTab === 'produtores'"      (click)="activeTab = 'produtores'">Produtores</button>
+            <button class="tab-btn" [class.active]="activeTab === 'auditores'"       (click)="activeTab = 'auditores'">Auditores</button>
+            <button class="tab-btn" [class.active]="activeTab === 'transportadores'" (click)="activeTab = 'transportadores'">Transportadores</button>
+            <button class="tab-btn" [class.active]="activeTab === 'varejistas'"      (click)="activeTab = 'varejistas'">Varejistas</button>
           </div>
 
-          <button class="btn primary">+ Novo usuário</button>
+          <button class="btn primary" (click)="openModal()">+ Novo usuário</button>
         </div>
 
+        <!-- Administradores -->
         @if (activeTab === 'administradores') {
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Seiji Hoshino</td>
-                <td>seiji&#64;safesupply.com</td>
-                <td><span class="badge active">Ativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link danger">Inativar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Sabrina Gabrielle</td>
-                <td>sabrina&#64;safesupply.com</td>
-                <td><span class="badge active">Ativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link danger">Inativar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Rodolfo Alves</td>
-                <td>rodolfo&#64;safesupply.com</td>
-                <td><span class="badge active">Ativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link danger">Inativar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Gabriel Yudi</td>
-                <td>gabriel&#64;safesupply.com</td>
-                <td><span class="badge active">Ativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link danger">Inativar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          @if (administrators.length > 0) {
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody>
+                @for (user of administrators; track user.id) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td><span class="badge" [class.active]="user.status === 'active'" [class.inactive]="user.status === 'inactive'">{{ user.status === 'active' ? 'Ativo' : 'Inativo' }}</span></td>
+                  <td class="actions-cell">
+                    <button class="btn-link edit">Editar</button>
+                    <button class="btn-link" [class.danger]="user.status === 'active'" [class.success]="user.status === 'inactive'" (click)="toggleStatus(user)">{{ user.status === 'active' ? 'Inativar' : 'Ativar' }}</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else {
+          <div class="empty-state">Nenhum administrador cadastrado.</div>
+          }
         }
 
+        <!-- Produtores -->
         @if (activeTab === 'produtores') {
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>5</td>
-                <td>Fazenda Malunga</td>
-                <td>malunga&#64;hotmail.com</td>
-                <td><span class="badge active">Ativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link danger">Inativar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Fazenda Vale das Palmeiras</td>
-                <td>valedaspalmeiras&#64;outlook.com</td>
-                <td><span class="badge inactive">Inativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link success">Ativar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td>Fazenda da Toca</td>
-                <td>toca&#64;gmail.com</td>
-                <td><span class="badge active">Ativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link danger">Inativar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td>Fazenda Nata da Serra</td>
-                <td>natadaserra&#64;proton.com</td>
-                <td><span class="badge active">Ativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link danger">Inativar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          @if (producers.length > 0) {
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody>
+                @for (user of producers; track user.id) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td><span class="badge" [class.active]="user.status === 'active'" [class.inactive]="user.status === 'inactive'">{{ user.status === 'active' ? 'Ativo' : 'Inativo' }}</span></td>
+                  <td class="actions-cell">
+                    <button class="btn-link edit">Editar</button>
+                    <button class="btn-link" [class.danger]="user.status === 'active'" [class.success]="user.status === 'inactive'" (click)="toggleStatus(user)">{{ user.status === 'active' ? 'Inativar' : 'Ativar' }}</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else {
+          <div class="empty-state">Nenhum produtor cadastrado.</div>
+          }
         }
 
+        <!-- Auditores -->
         @if (activeTab === 'auditores') {
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>9</td>
-                <td>Ricardo Lopes</td>
-                <td>ricardo&#64;hotmail.com</td>
-                <td><span class="badge active">Ativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link danger">Inativar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td>Tiago Brumassio</td>
-                <td>tiago&#64;outlook.com</td>
-                <td><span class="badge inactive">Inativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link success">Ativar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          @if (auditors.length > 0) {
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody>
+                @for (user of auditors; track user.id) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td><span class="badge" [class.active]="user.status === 'active'" [class.inactive]="user.status === 'inactive'">{{ user.status === 'active' ? 'Ativo' : 'Inativo' }}</span></td>
+                  <td class="actions-cell">
+                    <button class="btn-link edit">Editar</button>
+                    <button class="btn-link" [class.danger]="user.status === 'active'" [class.success]="user.status === 'inactive'" (click)="toggleStatus(user)">{{ user.status === 'active' ? 'Inativar' : 'Ativar' }}</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else {
+          <div class="empty-state">Nenhum auditor cadastrado.</div>
+          }
         }
 
+        <!-- Transportadores -->
         @if (activeTab === 'transportadores') {
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>11</td>
-                <td>Ricoo Log Transportes e Logística</td>
-                <td>rico&#64;logística.com</td>
-                <td><span class="badge active">Ativo</span></td>
-                <td class="actions-cell">
-                  <button class="btn-link edit">Editar</button>
-                  <button class="btn-link danger">Inativar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          @if (transporters.length > 0) {
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>ID</th><th>Nome</th><th>Placa</th><th>Tipo de Veículo</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody>
+                @for (transporter of transporters; track transporter.id) {
+                <tr>
+                  <td>{{ transporter.id }}</td>
+                  <td>{{ transporter.name }}</td>
+                  <td><span class="plate-tag">{{ transporter.plate }}</span></td>
+                  <td>{{ transporter.vehicleType }}</td>
+                  <td><span class="badge" [class.active]="transporter.status === 'active'" [class.inactive]="transporter.status === 'inactive'">{{ transporter.status === 'active' ? 'Ativo' : 'Inativo' }}</span></td>
+                  <td class="actions-cell">
+                    <button class="btn-link edit">Editar</button>
+                    <button class="btn-link" [class.danger]="transporter.status === 'active'" [class.success]="transporter.status === 'inactive'" (click)="toggleStatus(transporter)">{{ transporter.status === 'active' ? 'Inativar' : 'Ativar' }}</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else {
+          <div class="empty-state">Nenhum transportador cadastrado.</div>
+          }
         }
 
+        <!-- Varejistas -->
         @if (activeTab === 'varejistas') {
-        <div class="empty-state">
-          Nenhum varejista cadastrado.
-        </div>
+          @if (retailers.length > 0) {
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody>
+                @for (user of retailers; track user.id) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td><span class="badge" [class.active]="user.status === 'active'" [class.inactive]="user.status === 'inactive'">{{ user.status === 'active' ? 'Ativo' : 'Inativo' }}</span></td>
+                  <td class="actions-cell">
+                    <button class="btn-link edit">Editar</button>
+                    <button class="btn-link" [class.danger]="user.status === 'active'" [class.success]="user.status === 'inactive'" (click)="toggleStatus(user)">{{ user.status === 'active' ? 'Inativar' : 'Ativar' }}</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else {
+          <div class="empty-state">Nenhum varejista cadastrado.</div>
+          }
         }
+
       </div>
     </section>
   </main>
 </div>
+
+<!-- Registration modal -->
+@if (showModal) {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <p class="modal-eyebrow">{{ activeTabLabel }}</p>
+        <h2>Novo usuário</h2>
+      </div>
+      <button class="modal-close" (click)="closeModal()">&#x2715;</button>
+    </div>
+
+    <form class="modal-form" (ngSubmit)="registerUser()">
+
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input id="name" type="text" [(ngModel)]="newUser.name" name="name"
+          placeholder="Ex: João Silva" [hidden]="isTransporterTab" />
+        <input id="transporter-name" type="text" [(ngModel)]="newTransporter.name" name="transporterName"
+          placeholder="Ex: Ricoo Logística" [hidden]="!isTransporterTab" />
+      </div>
+
+      @if (!isTransporterTab) {
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" [(ngModel)]="newUser.email" name="email"
+          placeholder="Ex: joao@safesupply.com" />
+      </div>
+      }
+
+      @if (isTransporterTab) {
+      <div class="form-group">
+        <label for="plate">Placa do veículo</label>
+        <input id="plate" type="text" [(ngModel)]="newTransporter.plate" name="plate"
+          placeholder="Ex: ABC-1234" style="text-transform: uppercase" />
+      </div>
+
+      <div class="form-group">
+        <label for="vehicleType">Tipo de veículo</label>
+        <select id="vehicleType" [(ngModel)]="newTransporter.vehicleType" name="vehicleType">
+          @for (type of vehicleTypes; track type) {
+          <option [value]="type">{{ type }}</option>
+          }
+        </select>
+      </div>
+      }
+
+      <div class="modal-actions">
+        <button type="button" class="btn secondary" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="btn primary">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+}
