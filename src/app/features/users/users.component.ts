@@ -132,6 +132,10 @@ export class UsersComponent {
     this.closeUserForm();
   }
 
+  deleteUser(id: number): void {
+    this.users = this.users.filter(u => u.id !== id);
+  }
+
   toggleStatus(user: User): void {
     user.status = user.status === 'ativo' ? 'inativo' : 'ativo';
     this.users = [...this.users];

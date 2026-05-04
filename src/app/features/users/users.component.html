@@ -67,6 +67,7 @@
               </td>
               <td class="actions-cell">
                 <button class="btn-action edit" (click)="openEditForm(user)">Editar</button>
+                <button class="btn-action delete" (click)="deleteUser(user.id)">Excluir</button>
                 @if (user.status === 'ativo') {
                   <button class="btn-action deactivate" (click)="toggleStatus(user)">Inativar</button>
                 } @else {
