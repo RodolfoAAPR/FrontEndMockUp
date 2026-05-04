@@ -1,0 +1,161 @@
+<div class="users-page">
+  <div class="background-glow glow-1"></div>
+  <div class="background-glow glow-2"></div>
+
+  <header class="topbar">
+    <div class="logo">SAFE<span> Supply</span></div>
+    <nav class="menu">
+      <a routerLink="/home">Home</a>
+      <a routerLink="/users">Usuários</a>
+      <a routerLink="/lots">Lotes</a>
+    </nav>
+  </header>
+
+  <main class="users-wrapper">
+    <section class="intro-card">
+      <p class="eyebrow">GESTÃO DE USUÁRIOS</p>
+      <h1>Gerenciamento de usuários</h1>
+      <p class="intro-text">
+        Visualize, cadastre e gerencie os usuários da plataforma por categoria.
+      </p>
+    </section>
+
+    <section class="content-area">
+      <div class="header-row">
+        <div class="tabs">
+          <button (click)="activeTab = 'administradores'" [class.active]="activeTab === 'administradores'">Administradores</button>
+          <button (click)="activeTab = 'produtores'"      [class.active]="activeTab === 'produtores'">Produtores</button>
+          <button (click)="activeTab = 'auditores'"       [class.active]="activeTab === 'auditores'">Auditores</button>
+          <button (click)="activeTab = 'transportadores'" [class.active]="activeTab === 'transportadores'">Transportadores</button>
+          <button (click)="activeTab = 'varejistas'"      [class.active]="activeTab === 'varejistas'">Varejistas</button>
+        </div>
+        <button class="btn primary" (click)="openUserForm()">+ Novo usuário</button>
+      </div>
+
+      <div class="table-card">
+        @if (filteredUsers.length > 0) {
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              @if (isTransporterTab) {
+                <th>Placa</th>
+                <th>Tipo de Veículo</th>
+              } @else {
+                <th>Email</th>
+              }
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of filteredUsers; track user.id) {
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>{{ user.nome }}</td>
+              @if (isTransporterTab) {
+                <td><span class="plate-tag">{{ user.placa }}</span></td>
+                <td>{{ user.vehicleType }}</td>
+              } @else {
+                <td>{{ user.email }}</td>
+              }
+              <td>
+                <span class="badge" [class.active]="user.status === 'ativo'" [class.inactive]="user.status === 'inativo'">
+                  {{ user.status === 'ativo' ? 'Ativo' : 'Inativo' }}
+                </span>
+              </td>
+              <td class="actions-cell">
+                <button class="btn-action edit" (click)="openEditForm(user)">Editar</button>
+                <button class="btn-action delete" (click)="deleteUser(user.id)">Excluir</button>
+                @if (user.status === 'ativo') {
+                  <button class="btn-action deactivate" (click)="toggleStatus(user)">Inativar</button>
+                } @else {
+                  <button class="btn-action activate" (click)="toggleStatus(user)">Ativar</button>
+                }
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+        } @else {
+        <div class="empty-state">
+          Nenhum usuário cadastrado nesta categoria.
+        </div>
+        }
+      </div>
+    </section>
+  </main>
+</div>
+
+@if (showUserForm) {
+<div class="modal-overlay" (click)="closeUserForm()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ editingUser ? 'Editar usuário' : 'Novo usuário' }}</h2>
+      <button class="close-btn" (click)="closeUserForm()">&times;</button>
+    </div>
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input id="nome" formControlName="nome" type="text" placeholder="Nome completo" />
+        @if (userForm.get('nome')?.invalid && userForm.get('nome')?.touched) {
+          <p class="error-msg">Nome é obrigatório.</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="tipo">Tipo</label>
+        <select id="tipo" formControlName="tipo">
+          <option value="" disabled>Selecione um tipo</option>
+          <option value="administrador">Administrador</option>
+          <option value="produtor">Produtor</option>
+          <option value="auditor">Auditor</option>
+          <option value="transportador">Transportador</option>
+          <option value="varejista">Varejista</option>
+        </select>
+        @if (userForm.get('tipo')?.invalid && userForm.get('tipo')?.touched) {
+          <p class="error-msg">Tipo é obrigatório.</p>
+        }
+      </div>
+
+      @if (!isTransporterForm) {
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" placeholder="email&#64;exemplo.com" />
+      </div>
+      }
+
+      @if (isTransporterForm) {
+      <div class="form-group">
+        <label for="placa">Placa do veículo</label>
+        <input id="placa" formControlName="placa" type="text" placeholder="Ex: ABC-1234" style="text-transform: uppercase" />
+      </div>
+
+      <div class="form-group">
+        <label for="vehicleType">Tipo de veículo</label>
+        <select id="vehicleType" formControlName="vehicleType">
+          @for (type of vehicleTypes; track type) {
+            <option [value]="type">{{ type }}</option>
+          }
+        </select>
+      </div>
+      }
+
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status">
+          <option value="ativo">Ativo</option>
+          <option value="inativo">Inativo</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn secondary" (click)="closeUserForm()">Cancelar</button>
+        <button type="submit" class="btn primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+}
