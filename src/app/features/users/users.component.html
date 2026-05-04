@@ -1,0 +1,265 @@
+<div class="users-page">
+  <div class="background-glow glow-1"></div>
+  <div class="background-glow glow-2"></div>
+
+  <header class="topbar">
+    <div class="logo">SAFE<span> Supply</span></div>
+    <nav class="menu">
+      <a routerLink="/login">Login</a>
+      <a routerLink="/users">Usuários</a>
+    </nav>
+  </header>
+
+  <main class="users-wrapper">
+    <section class="intro-card">
+      <p class="eyebrow">CONTROLE DE ACESSO</p>
+      <h1>Gerenciamento de usuários</h1>
+      <p class="intro-text">
+        Visualize, cadastre e gerencie os usuários da plataforma por categoria de acesso.
+      </p>
+    </section>
+
+    <section class="content-area">
+      <div class="panel-card">
+        <div class="panel-top">
+          <div class="tabs">
+            <button class="tab-btn" [class.active]="activeTab === 'administradores'" (click)="activeTab = 'administradores'">Administradores</button>
+            <button class="tab-btn" [class.active]="activeTab === 'produtores'"      (click)="activeTab = 'produtores'">Produtores</button>
+            <button class="tab-btn" [class.active]="activeTab === 'auditores'"       (click)="activeTab = 'auditores'">Auditores</button>
+            <button class="tab-btn" [class.active]="activeTab === 'transportadores'" (click)="activeTab = 'transportadores'">Transportadores</button>
+            <button class="tab-btn" [class.active]="activeTab === 'varejistas'"      (click)="activeTab = 'varejistas'">Varejistas</button>
+          </div>
+
+          <button class="btn primary" (click)="openModal()">+ Novo usuário</button>
+        </div>
+
+        <!-- Administradores -->
+        @if (activeTab === 'administradores') {
+          @if (administrators.length > 0) {
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody>
+                @for (user of administrators; track user.id) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td><span class="badge" [class.active]="user.status === 'active'" [class.inactive]="user.status === 'inactive'">{{ user.status === 'active' ? 'Ativo' : 'Inativo' }}</span></td>
+                  <td class="actions-cell">
+                    <button class="btn-link edit">Editar</button>
+                    <button class="btn-link" [class.danger]="user.status === 'active'" [class.success]="user.status === 'inactive'" (click)="toggleStatus(user)">{{ user.status === 'active' ? 'Inativar' : 'Ativar' }}</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else {
+          <div class="empty-state">Nenhum administrador cadastrado.</div>
+          }
+        }
+
+        <!-- Produtores -->
+        @if (activeTab === 'produtores') {
+          @if (producers.length > 0) {
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody>
+                @for (user of producers; track user.id) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td><span class="badge" [class.active]="user.status === 'active'" [class.inactive]="user.status === 'inactive'">{{ user.status === 'active' ? 'Ativo' : 'Inativo' }}</span></td>
+                  <td class="actions-cell">
+                    <button class="btn-link edit">Editar</button>
+                    <button class="btn-link" [class.danger]="user.status === 'active'" [class.success]="user.status === 'inactive'" (click)="toggleStatus(user)">{{ user.status === 'active' ? 'Inativar' : 'Ativar' }}</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else {
+          <div class="empty-state">Nenhum produtor cadastrado.</div>
+          }
+        }
+
+        <!-- Auditores -->
+        @if (activeTab === 'auditores') {
+          @if (auditors.length > 0) {
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody>
+                @for (user of auditors; track user.id) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td><span class="badge" [class.active]="user.status === 'active'" [class.inactive]="user.status === 'inactive'">{{ user.status === 'active' ? 'Ativo' : 'Inativo' }}</span></td>
+                  <td class="actions-cell">
+                    <button class="btn-link edit">Editar</button>
+                    <button class="btn-link" [class.danger]="user.status === 'active'" [class.success]="user.status === 'inactive'" (click)="toggleStatus(user)">{{ user.status === 'active' ? 'Inativar' : 'Ativar' }}</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else {
+          <div class="empty-state">Nenhum auditor cadastrado.</div>
+          }
+        }
+
+        <!-- Transportadores -->
+        @if (activeTab === 'transportadores') {
+          @if (transporters.length > 0) {
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>ID</th><th>Nome</th><th>Placa</th><th>Tipo de Veículo</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody>
+                @for (transporter of transporters; track transporter.id) {
+                <tr>
+                  <td>{{ transporter.id }}</td>
+                  <td>{{ transporter.name }}</td>
+                  <td><span class="plate-tag">{{ transporter.plate }}</span></td>
+                  <td>{{ transporter.vehicleType }}</td>
+                  <td><span class="badge" [class.active]="transporter.status === 'active'" [class.inactive]="transporter.status === 'inactive'">{{ transporter.status === 'active' ? 'Ativo' : 'Inativo' }}</span></td>
+                  <td class="actions-cell">
+                    <button class="btn-link edit" (click)="openEditModal(transporter)">Editar</button>
+                    <button class="btn-link danger" (click)="deleteTransporter(transporter.id)">Excluir</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else {
+          <div class="empty-state">Nenhum transportador cadastrado.</div>
+          }
+        }
+
+        <!-- Varejistas -->
+        @if (activeTab === 'varejistas') {
+          @if (retailers.length > 0) {
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody>
+                @for (user of retailers; track user.id) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td><span class="badge" [class.active]="user.status === 'active'" [class.inactive]="user.status === 'inactive'">{{ user.status === 'active' ? 'Ativo' : 'Inativo' }}</span></td>
+                  <td class="actions-cell">
+                    <button class="btn-link edit">Editar</button>
+                    <button class="btn-link" [class.danger]="user.status === 'active'" [class.success]="user.status === 'inactive'" (click)="toggleStatus(user)">{{ user.status === 'active' ? 'Inativar' : 'Ativar' }}</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else {
+          <div class="empty-state">Nenhum varejista cadastrado.</div>
+          }
+        }
+
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Modal -->
+@if (showModal) {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <div>
+        @if (editingTransporter) {
+          <p class="modal-eyebrow">TRANSPORTADORES</p>
+          <h2>Editar transportador</h2>
+        } @else {
+          <p class="modal-eyebrow">{{ activeTabLabel }}</p>
+          <h2>Novo usuário</h2>
+        }
+      </div>
+      <button class="modal-close" (click)="closeModal()">&#x2715;</button>
+    </div>
+
+    <!-- Formulário de edição de transportador -->
+    @if (editingTransporter) {
+    <form class="modal-form" (ngSubmit)="saveTransporterEdit()">
+      <div class="form-group">
+        <label for="edit-name">Nome</label>
+        <input id="edit-name" type="text" [(ngModel)]="editingTransporter.name" name="editName"
+          placeholder="Ex: Ricoo Logística" />
+      </div>
+      <div class="form-group">
+        <label for="edit-plate">Placa do veículo</label>
+        <input id="edit-plate" type="text" [(ngModel)]="editingTransporter.plate" name="editPlate"
+          placeholder="Ex: ABC-1234" style="text-transform: uppercase" />
+      </div>
+      <div class="form-group">
+        <label for="edit-vehicleType">Tipo de veículo</label>
+        <select id="edit-vehicleType" [(ngModel)]="editingTransporter.vehicleType" name="editVehicleType">
+          @for (type of vehicleTypes; track type) {
+          <option [value]="type">{{ type }}</option>
+          }
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn secondary" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="btn primary">Salvar</button>
+      </div>
+    </form>
+    } @else {
+    <!-- Formulário de cadastro -->
+    <form class="modal-form" (ngSubmit)="registerUser()">
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input id="name" type="text" [(ngModel)]="newUser.name" name="name"
+          placeholder="Ex: João Silva" [hidden]="isTransporterTab" />
+        <input id="transporter-name" type="text" [(ngModel)]="newTransporter.name" name="transporterName"
+          placeholder="Ex: Ricoo Logística" [hidden]="!isTransporterTab" />
+      </div>
+
+      @if (!isTransporterTab) {
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" [(ngModel)]="newUser.email" name="email"
+          placeholder="Ex: joao@safesupply.com" />
+      </div>
+      }
+
+      @if (isTransporterTab) {
+      <div class="form-group">
+        <label for="plate">Placa do veículo</label>
+        <input id="plate" type="text" [(ngModel)]="newTransporter.plate" name="plate"
+          placeholder="Ex: ABC-1234" style="text-transform: uppercase" />
+      </div>
+      <div class="form-group">
+        <label for="vehicleType">Tipo de veículo</label>
+        <select id="vehicleType" [(ngModel)]="newTransporter.vehicleType" name="vehicleType">
+          @for (type of vehicleTypes; track type) {
+          <option [value]="type">{{ type }}</option>
+          }
+        </select>
+      </div>
+      }
+
+      <div class="modal-actions">
+        <button type="button" class="btn secondary" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="btn primary">Cadastrar</button>
+      </div>
+    </form>
+    }
+
+  </div>
+</div>
+}
